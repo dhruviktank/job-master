@@ -1,0 +1,30 @@
+services:
+  selenium:
+    image: selenium/standalone-chromium
+    ports:
+      - 4444:4444
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: ["python", "-u", "app/workers/worker.py"]
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
