@@ -5,7 +5,6 @@ from app.core.config import settings
 redis_conn = Redis(
     host='redis-17369.c16.us-east-1-3.ec2.redns.redis-cloud.com',
     port=17369,
-    decode_responses=True,
     username="default",
     password="K7QZEul2GgrsxBr2koiZC4m5sR3ULGfG"
 )
